@@ -1,6 +1,6 @@
-RSpec.describe Polyanalyst6api do
+RSpec.describe PolyAnalyst6API do
   it "has a version number" do
-    expect(Polyanalyst6api::VERSION).not_to be nil
+    expect(PolyAnalyst6API::VERSION).not_to be nil
   end
 
   it "does something useful" do

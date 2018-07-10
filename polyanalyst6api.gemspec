@@ -4,7 +4,7 @@ require 'polyanalyst6api/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'polyanalyst6api'
-  spec.version       = Polyanalyst6api::VERSION
+  spec.version       = PolyAnalyst6API::VERSION
   spec.authors       = ['Oleg Ivanov']
   spec.email         = ['ivanov@megaputer.ru', 'gluk.main+github@gmail.com']
 

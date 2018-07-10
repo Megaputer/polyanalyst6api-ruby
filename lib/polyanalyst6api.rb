@@ -1,5 +1,5 @@
-require "polyanalyst6api/version"
+require 'polyanalyst6api/version'
 
-module Polyanalyst6api
+module PolyAnalyst6API
   # Your code goes here...
 end
