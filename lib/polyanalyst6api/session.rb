@@ -14,5 +14,9 @@ module PolyAnalyst6API
       @sid = resp.cookies['sid']
       raise 'Login failed!' unless @sid
     end
+
+    def request(url: '', method: :get, params: {})
+      Request.new(@base_url, @sid, url, method, params)
+    end
   end
 end
