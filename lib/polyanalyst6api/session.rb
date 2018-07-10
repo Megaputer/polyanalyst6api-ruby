@@ -18,5 +18,9 @@ module PolyAnalyst6API
     def request(url: '', method: :get, params: {})
       Request.new(@base_url, @sid, url, method, params)
     end
+
+    def project(uuid)
+      Project.new(self, uuid)
+    end
   end
 end
