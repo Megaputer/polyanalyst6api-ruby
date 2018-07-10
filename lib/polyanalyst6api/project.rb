@@ -66,7 +66,7 @@ module PolyAnalyst6API
       }
       @session.request(params).perform! do |resp|
         raise resp.body[:error] unless resp.code == 200
-        resp.body
+        JSON.parse resp.body
       end
     end
   end
