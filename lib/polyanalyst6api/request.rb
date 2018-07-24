@@ -42,12 +42,11 @@ module PolyAnalyst6API
     end
 
     def get_params
+      prms = Addressable::URI.new
+      prms.query_values = @params
       {
-        content_type: :json,
+        url: @base_url + @url + '?' + prms.query,
         accept: :json,
-        headers: {
-          params: @params
-        },
         cookies: { sid: @sid }
       }
     end
