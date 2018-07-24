@@ -19,6 +19,11 @@ module PolyAnalyst6API
       Request.new(@base_url, @sid, url, method, params)
     end
 
+    def custom_request(url: '', method: :get, params: {})
+      base_url = @base_url.split('/polyanalyst').first
+      Request.new(base_url, @sid, url, method, params)
+    end
+
     def project(uuid)
       Project.new(self, uuid)
     end
