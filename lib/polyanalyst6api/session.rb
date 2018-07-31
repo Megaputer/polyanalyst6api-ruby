@@ -10,7 +10,11 @@ module PolyAnalyst6API
         url: login_url,
         verify_ssl: false
       }
-      resp = RestClient::Request.execute params
+      begin
+        resp = RestClient::Request.execute params
+      rescue RestClient::InternalServerError => e
+        raise JSON.parse(e.response.body)[1]
+      end
       @sid = resp.cookies['sid']
       raise 'Login failed!' unless @sid
     end
