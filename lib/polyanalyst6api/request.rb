@@ -11,10 +11,8 @@ module PolyAnalyst6API
     def perform!
       begin
         resp = RestClient::Request.execute full_params
-      rescue RestClient::InternalServerError => e # Treating 500 code exception as a common response
-        error = JSON.parse(e.response.body)[1]
-        h = { code: 500, body: { error: error } }
-        resp = OpenStruct.new(h)
+      rescue RestClient::InternalServerError => e
+        raise JSON.parse(e.response.body)[1]
       end
       return yield(resp) if block_given? # Allowing manual response processing
       JSON.parse(resp.body)
