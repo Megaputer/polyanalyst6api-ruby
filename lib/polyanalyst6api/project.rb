@@ -1,10 +1,18 @@
+# frozen_string_literal: true
+
 module PolyAnalyst6API
+  # This class maintains all the operations with a project
   class Project
+    # @param session [Session] An instance of Session
+    # @param uuid [String] The uuid of a project you want to interact with
+    # @return [Project] an instance of Project
     def initialize(session, uuid)
       @session = session
       @uuid = uuid
     end
 
+    # Returns a list of project nodes
+    # @return [Array<Hash>] A list with nodes info
     def nodes
       params = {
         method: :get,
@@ -14,6 +22,9 @@ module PolyAnalyst6API
       @session.request(params).perform!['nodes']
     end
 
+    # Executes the passed nodes
+    # @param nodes [Array<Hash>] A subset of nodes returned by the method *nodes*
+    # @return [bool] true - execution started; false - something went wrong
     def execute!(nodes = [])
       params = {
         method: :post,
@@ -24,10 +35,13 @@ module PolyAnalyst6API
         }
       }
       @session.request(params).perform! do |resp|
-        raise resp.body[:error] unless resp.code == 202
+        return false unless resp.code == 202
       end
+      true
     end
 
+    # Stops project execution
+    # @return [bool] true - execution stopped; false - something went wrong
     def abort!
       params = {
         method: :post,
@@ -37,10 +51,13 @@ module PolyAnalyst6API
         }
       }
       @session.request(params).perform! do |resp|
-        raise resp.body[:error] unless resp.code == 200
+        return false unless resp.code == 200
       end
+      true
     end
 
+    # Saves the project
+    # @return [bool] true - saved successfully; false - something went wrong
     def save!
       params = {
         method: :post,
@@ -50,10 +67,18 @@ module PolyAnalyst6API
         }
       }
       @session.request(params).perform! do |resp|
-        raise resp.body[:error] unless resp.code == 202
+        return false unless resp.code == 202
       end
+      true
     end
 
+    # Returns the first 1000 rows of a dataset
+    # @param type [String] The type of a node
+    # @param name [String] The name of a node
+    # @example
+    #   project = Project.new(Session.new, '4c44659c-4edb-4f3e-8342-b10451b96f3f')
+    #   project.dataset_preview('DataSource', 'Dataset 01.csv')
+    # @return [Array<Hash>] A list of rows info
     def dataset_preview(type, name)
       params = {
         method: :get,
@@ -64,10 +89,7 @@ module PolyAnalyst6API
           type: type
         }
       }
-      @session.request(params).perform! do |resp|
-        raise resp.body[:error] unless resp.code == 200
-        JSON.parse resp.body
-      end
+      @session.request(params).perform!
     end
   end
 end
