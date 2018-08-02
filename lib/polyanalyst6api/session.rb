@@ -30,7 +30,7 @@ module PolyAnalyst6API
       raise 'Login failed!' unless @sid
     end
 
-    # Creates a Request instance
+    # Creates a Request instance (A Request.new alias)
     # @return [Request] Request instance
     def request(url: '', method: :get, params: {})
       Request.new(@base_url, @sid, url, method, params)
@@ -43,7 +43,7 @@ module PolyAnalyst6API
       Request.new(base_url, @sid, url, method, params)
     end
 
-    # Creates an instance of Project
+    # Creates an instance of Project (A Project.new alias)
     # @return [Project] Project instance
     def project(uuid)
       Project.new(self, uuid)
