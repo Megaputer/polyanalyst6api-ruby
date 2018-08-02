@@ -1,5 +1,14 @@
+# frozen_string_literal: true
+
 module PolyAnalyst6API
+  # This class allows to construct requests, execute them and process theri responses
   class Request
+    # @param [String] base_url Base part of url (host, port, API version)
+    # @param [String] sid A session SID
+    # @param [String] url Request specific url part of an url
+    # @param [String] method Http method of a request
+    # @param [String] params Parameters
+    # @return [Request] an instance of Request
     def initialize(base_url, sid, url, method, params)
       @base_url = base_url
       @sid = sid
@@ -8,12 +17,20 @@ module PolyAnalyst6API
       @params = params
     end
 
+    # Executes the request (and allows response manual processing)
+    # @raise [StandardError] An exception with corresponding error message
+    # @yield [response] Manual reponse processing
+    # @yieldparam response [RestClient::Response] A response to process
+    # @yieldreturn [custom] The result of a block
+    # @return [Hash] The parsed response body (default)
+    # @return [custom] The result of passed block (if passed)
     def perform!
       begin
         resp = RestClient::Request.execute full_params
       rescue RestClient::InternalServerError => e
         raise JSON.parse(e.response.body)[1]
       end
+      puts resp.class
       return yield(resp) if block_given? # Allowing manual response processing
       JSON.parse(resp.body)
     end
