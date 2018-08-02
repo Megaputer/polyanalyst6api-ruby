@@ -30,7 +30,6 @@ module PolyAnalyst6API
       rescue RestClient::InternalServerError => e
         raise JSON.parse(e.response.body)[1]
       end
-      puts resp.class
       return yield(resp) if block_given? # Allowing manual response processing
       JSON.parse(resp.body)
     end
