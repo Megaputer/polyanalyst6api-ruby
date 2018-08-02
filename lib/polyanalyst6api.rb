@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'polyanalyst6api/version'
 
 require 'rest-client'
@@ -8,6 +10,7 @@ require 'polyanalyst6api/session'
 require 'polyanalyst6api/request'
 require 'polyanalyst6api/project'
 
+# The module for the interaction with PolyAnalyst 6.x API
 module PolyAnalyst6API
   # Your code goes here...
 end
