@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
 module PolyAnalyst6API
-  VERSION = '0.1.0'.freeze
+  # The gem version
+  VERSION = '0.1.0'
 end
