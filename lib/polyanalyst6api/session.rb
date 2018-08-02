@@ -1,9 +1,20 @@
+# frozen_string_literal: true
+
 module PolyAnalyst6API
+  # This class maintains sessions in PolyAnalyst 6.x
+  # @attr_reader sid [String] The SID of current sessoin
   class Session
     attr_reader :sid
-
-    def initialize(domen: 'localhost', port: 5043, v: '1.0', uname: 'administrator', pwd: '')
-      @base_url = "https://#{domen}:#{port}/polyanalyst/api/v#{v}"
+    # Log in to a PolyAnslyst Server
+    # @param [String] :host The host to login to
+    # @param [Integer] :port The prot
+    # @param [String] :v API version to use (ex. '1.0', '2.3' etc.)
+    # @param [String] :uname The user name to login with
+    # @param [String] :pwd The password for specified user name
+    # @raise [StandardError] an exception with corresponding login error
+    # @return [Session] an instance of Session
+    def initialize(host: 'localhost', port: 5043, v: '1.0', uname: 'administrator', pwd: '')
+      @base_url = "https://#{host}:#{port}/polyanalyst/api/v#{v}"
       login_url = @base_url + "/login?uname=#{uname}&pwd=#{pwd}"
       params = {
         method: :post,
@@ -19,15 +30,21 @@ module PolyAnalyst6API
       raise 'Login failed!' unless @sid
     end
 
+    # Creates a Request instance
+    # @return [Request] Request instance
     def request(url: '', method: :get, params: {})
       Request.new(@base_url, @sid, url, method, params)
     end
 
+    # Creates a custom (non-API) Request instance
+    # @return [Request] Request instance
     def custom_request(url: '', method: :get, params: {})
       base_url = @base_url.split('/polyanalyst').first
       Request.new(base_url, @sid, url, method, params)
     end
 
+    # Creates an instance of Project
+    # @return [Project] Project instance
     def project(uuid)
       Project.new(self, uuid)
     end
