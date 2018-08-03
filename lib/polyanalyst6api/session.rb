@@ -36,13 +36,6 @@ module PolyAnalyst6API
       Request.new(@base_url, @sid, url, method, params)
     end
 
-    # Creates a custom (non-API) Request instance
-    # @return [Request] Request instance
-    def custom_request(url: '', method: :get, params: {})
-      base_url = @base_url.split('/polyanalyst').first
-      Request.new(base_url, @sid, url, method, params)
-    end
-
     # Creates an instance of Project (A Project.new alias)
     # @return [Project] Project instance
     def project(uuid)
