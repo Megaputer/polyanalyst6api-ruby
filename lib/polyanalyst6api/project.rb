@@ -91,5 +91,21 @@ module PolyAnalyst6API
       }
       @session.request(params).perform!
     end
+
+    # Returns the execution statistics for a particular project
+    # @example
+    #   project = Project.new(Session.new, '4c44659c-4edb-4f3e-8342-b10451b96f3f')
+    #   project.execution_statistics
+    # @return [Array<Hash>] A list of rows with per-node statistics
+    def execution_statistics
+      params = {
+        method: :get,
+        url: '/project/execution-statistics',
+        params: {
+          prjUUID: @uuid
+        }
+      }
+      @session.request(params).perform!
+    end
   end
 end
