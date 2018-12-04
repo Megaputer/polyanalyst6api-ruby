@@ -39,7 +39,7 @@ Full API specification is stored in the **PolyAnalyst User Manual** under the ur
 ```
 Please, check out the page and choose the corresponding API version to explore.
 
-Refer to [the documentation](https://www.rubydoc.info/github/Megaputer/polyanalyst6api) for more detailed information on the gem usage.
+Refer to [the documentation](https://www.rubydoc.info/github/Megaputer/polyanalyst6api-ruby) for more detailed information on the gem usage.
 
 ## Development
 
