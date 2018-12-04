@@ -11,7 +11,10 @@ module PolyAnalyst6API
       @uuid = uuid
     end
 
-    # Returns a list of project nodes
+    # Returns the list of project nodes
+    # @example
+    #   project = Project.new(Session.new, '4c44659c-4edb-4f3e-8342-b10451b96f3f')
+    #   project.nodes
     # @return [Array<Hash>] A list with nodes info
     def nodes
       params = {
@@ -23,8 +26,10 @@ module PolyAnalyst6API
     end
 
     # Executes the passed nodes
+    # @example
+    #   project = Project.new(Session.new, '4c44659c-4edb-4f3e-8342-b10451b96f3f')
+    #   project.execute!
     # @param nodes [Array<Hash>] A subset of nodes returned by the method *nodes*
-    # @return [bool] true - execution started; false - something went wrong
     def execute!(nodes = [])
       params = {
         method: :post,
@@ -34,14 +39,13 @@ module PolyAnalyst6API
           nodes: nodes
         }
       }
-      @session.request(params).perform! do |resp|
-        return false unless resp.code == 202
-      end
-      true
+      @session.request(params).perform!
     end
 
     # Stops project execution
-    # @return [bool] true - execution stopped; false - something went wrong
+    # @example
+    #   project = Project.new(Session.new, '4c44659c-4edb-4f3e-8342-b10451b96f3f')
+    #   project.abort!
     def abort!
       params = {
         method: :post,
@@ -50,14 +54,13 @@ module PolyAnalyst6API
           prjUUID: @uuid
         }
       }
-      @session.request(params).perform! do |resp|
-        return false unless resp.code == 200
-      end
-      true
+      @session.request(params).perform!
     end
 
     # Saves the project
-    # @return [bool] true - saved successfully; false - something went wrong
+    # @example
+    #   project = Project.new(Session.new, '4c44659c-4edb-4f3e-8342-b10451b96f3f')
+    #   project.save!
     def save!
       params = {
         method: :post,
@@ -66,10 +69,7 @@ module PolyAnalyst6API
           prjUUID: @uuid
         }
       }
-      @session.request(params).perform! do |resp|
-        return false unless resp.code == 202
-      end
-      true
+      @session.request(params).perform!
     end
 
     # Returns the first 1000 rows of a dataset
@@ -120,8 +120,7 @@ module PolyAnalyst6API
           prjUUID: @uuid
         }
       }
-      @session.request(params).perform! do |resp|
-      end
+      @session.request(params).perform!
     end
 
     # Initiates prject removal
@@ -136,8 +135,7 @@ module PolyAnalyst6API
           prjUUID: @uuid
         }
       }
-      @session.request(params).perform! do |resp|
-      end
+      @session.request(params).perform!
     end
 
     # Initiates prject unloading
