@@ -139,5 +139,20 @@ module PolyAnalyst6API
       @session.request(params).perform! do |resp|
       end
     end
+
+    # Initiates prject unloading
+    # @example
+    #   project = Project.new(Session.new, '4c44659c-4edb-4f3e-8342-b10451b96f3f')
+    #   project.unload!
+    def unload!
+      params = {
+        method: :post,
+        url: '/project/unload',
+        params: {
+          prjUUID: @uuid
+        }
+      }
+      @session.request(params).perform!
+    end
   end
 end
