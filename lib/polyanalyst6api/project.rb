@@ -112,7 +112,6 @@ module PolyAnalyst6API
     # @example
     #   project = Project.new(Session.new, '4c44659c-4edb-4f3e-8342-b10451b96f3f')
     #   project.repair!
-    # # @return [bool] true - repair initiated; false - something went wrong
     def repair!
       params = {
         method: :post,
