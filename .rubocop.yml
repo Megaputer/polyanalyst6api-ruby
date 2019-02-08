@@ -2,11 +2,12 @@ AllCops:
   TargetRubyVersion: 2.4.1
   Exclude:
   - bin/*
+  - polyanalyst6api.gemspec
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
 Naming/AccessorMethodName:
   Enabled: false
 Metrics/LineLength:
-  Max: 100 # TODO: get it to 85
+  Max: 85
 Metrics/ClassLength:
   Enabled: false

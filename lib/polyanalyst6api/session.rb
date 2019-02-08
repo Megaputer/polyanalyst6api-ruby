@@ -16,11 +16,7 @@ module PolyAnalyst6API
     def initialize(server, uname: 'administrator', pwd: '')
       @server = server
       login_url = @server.base_url + "/login?uname=#{uname}&pwd=#{pwd}"
-      params = {
-        method: :post,
-        url: login_url,
-        verify_ssl: false
-      }
+      params = { method: :post, url: login_url, verify_ssl: false }
       begin
         resp = RestClient::Request.execute params
       rescue RestClient::InternalServerError => e
