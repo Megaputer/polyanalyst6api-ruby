@@ -32,8 +32,8 @@ module PolyAnalyst6API
       end
       return yield(resp) if block_given? # Allowing manual response processing
       return nil if resp.code == 202
-      JSON.parse(resp.body) unless resp.body.empty?
-      nil
+      data = resp.body
+      data.empty? ? nil : JSON.parse(data)
     end
 
     private
