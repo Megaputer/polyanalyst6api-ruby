@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 module PolyAnalyst6API
-  # This class allows to construct requests, execute them and process theri responses
+  # This class allows to construct requests, execute them and process their
+  # responses
   class Request
     # @param [String] base_url Base part of url (host, port, API version)
     # @param [String] sid A session SID

@@ -13,8 +13,8 @@ module PolyAnalyst6API
     # @param [String] :pwd The password for specified user name
     # @raise [StandardError] an exception with corresponding login error
     # @return [Session] an instance of Session
-    def initialize(host: 'localhost', port: 5043, v: '1.0', uname: 'administrator', pwd: '')
-      @base_url = "https://#{host}:#{port}/polyanalyst/api/v#{v}"
+    def initialize(host: 'localhost', port: 5043, version: '1.0', uname: 'administrator', pwd: '')
+      @base_url = "https://#{host}:#{port}/polyanalyst/api/v#{version}"
       login_url = @base_url + "/login?uname=#{uname}&pwd=#{pwd}"
       params = {
         method: :post,
