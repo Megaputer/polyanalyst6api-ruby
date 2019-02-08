@@ -152,5 +152,18 @@ module PolyAnalyst6API
       }
       @session.request(params).perform!
     end
+
+    # Returns a current project tasks list
+    #   project = Project.new(Session.new, '4c44659c-4edb-4f3e-8342-b10451b96f3f')
+    #   project.tasks
+    # @return [Array<Hash>] A list of tasks info
+    def tasks
+      params = {
+        method: :post,
+        url: '/project/tasks',
+        params: { prjUUID: @uuid }
+      }
+      @session.request(params).perform!
+    end
   end
 end
