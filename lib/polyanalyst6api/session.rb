@@ -13,9 +13,9 @@ module PolyAnalyst6API
     # @param [String] :pwd The password for specified user name
     # @raise [StandardError] an exception with corresponding login error
     # @return [Session] an instance of Session
-    def initialize(host: 'localhost', port: 5043, version: '1.0', uname: 'administrator', pwd: '')
-      @base_url = "https://#{host}:#{port}/polyanalyst/api/v#{version}"
-      login_url = @base_url + "/login?uname=#{uname}&pwd=#{pwd}"
+    def initialize(server, uname: 'administrator', pwd: '')
+      @server = server
+      login_url = @server.base_url + "/login?uname=#{uname}&pwd=#{pwd}"
       params = {
         method: :post,
         url: login_url,
@@ -33,7 +33,7 @@ module PolyAnalyst6API
     # Creates a Request instance (A Request.new alias)
     # @return [Request] Request instance
     def request(url: '', method: :get, params: {})
-      Request.new(@base_url, @sid, url, method, params)
+      Request.new(@server.base_url, @sid, url, method, params)
     end
 
     # Creates an instance of Project (A Project.new alias)
