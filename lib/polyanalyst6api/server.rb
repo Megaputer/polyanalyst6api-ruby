@@ -10,7 +10,7 @@ module PolyAnalyst6API
     # Initializes a Server instance
     # @param [String] :host Server host
     # @param [Integer] :port The prot
-    # @param [String] :v API version to use (ex. '1.0', '2.3' etc.)
+    # @param [String] :version API version to use (ex. '1.0', '2.3' etc.)
     # @param [String] :uname The user name to login with
     # @param [String] :pwd The password for specified user name
     # @raise [StandardError] an exception with corresponding login error
