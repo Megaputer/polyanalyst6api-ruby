@@ -161,7 +161,7 @@ module PolyAnalyst6API
     # @return [Array<Hash>] A list of tasks info
     def tasks
       params = {
-        method: :post,
+        method: :get,
         url: '/project/tasks',
         params: { prjUUID: @uuid }
       }
