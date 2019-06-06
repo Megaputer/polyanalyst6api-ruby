@@ -37,5 +37,11 @@ module PolyAnalyst6API
     def project(uuid)
       Project.new(self, uuid)
     end
+
+    # Returns the server info data (branch, build number, component hashes)
+    # @return [json] Server info
+    def server_info
+      request(url: '/server/info', method: :get).perform!
+    end
   end
 end
