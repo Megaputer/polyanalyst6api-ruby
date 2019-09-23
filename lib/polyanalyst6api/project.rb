@@ -34,10 +34,10 @@ module PolyAnalyst6API
       params = {
         method: :post,
         url: '/project/execute',
-        params: {
+        body: {
           prjUUID: @uuid,
           nodes: nodes
-        }
+        }.to_json
       }
       @session.request(params).perform!
     end
@@ -50,9 +50,9 @@ module PolyAnalyst6API
       params = {
         method: :post,
         url: '/project/global-abort',
-        params: {
+        body: {
           prjUUID: @uuid
-        }
+        }.to_json
       }
       @session.request(params).perform!
     end
@@ -65,9 +65,9 @@ module PolyAnalyst6API
       params = {
         method: :post,
         url: '/project/save',
-        params: {
+        body: {
           prjUUID: @uuid
-        }
+        }.to_json
       }
       @session.request(params).perform!
     end
@@ -118,9 +118,9 @@ module PolyAnalyst6API
       params = {
         method: :post,
         url: '/project/repair',
-        params: {
+        body: {
           prjUUID: @uuid
-        }
+        }.to_json
       }
       @session.request(params).perform!
     end
@@ -133,9 +133,9 @@ module PolyAnalyst6API
       params = {
         method: :post,
         url: '/project/delete',
-        params: {
+        body: {
           prjUUID: @uuid
-        }
+        }.to_json
       }
       @session.request(params).perform!
     end
@@ -148,14 +148,15 @@ module PolyAnalyst6API
       params = {
         method: :post,
         url: '/project/unload',
-        params: {
+        body: {
           prjUUID: @uuid
-        }
+        }.to_json
       }
       @session.request(params).perform!
     end
 
     # Returns a current project tasks list
+    # @example
     #   project = Project.new(Session.new, '4c44659c-4edb-4f3e-8342-b10451b96f3f')
     #   project.tasks
     # @return [Array<Hash>] A list of tasks info
@@ -164,6 +165,25 @@ module PolyAnalyst6API
         method: :get,
         url: '/project/tasks',
         params: { prjUUID: @uuid }
+      }
+      @session.request(params).perform!
+    end
+
+    # Configures the Parameters node
+    # @example
+    #   project = Project.new(Session.new, '4c44659c-4edb-4f3e-8342-b10451b96f3f')
+    #   settings = {
+    #     "Group name": "test",
+    #     "Terms name": "test1",
+    #     "Expression": "test2"
+    #   }
+    #   project.parameters_configure(12, "TmlLinkTerms/", settings)
+    def parameters_configure(obj_id, node_type, settings = {})
+      params = {
+        method: :post,
+        url: '/parameters/configure',
+        params: { prjUUID: @uuid, obj: obj_id },
+        body: { type: node_type, settings: settings }.to_json
       }
       @session.request(params).perform!
     end

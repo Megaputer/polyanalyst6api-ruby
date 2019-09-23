@@ -28,8 +28,8 @@ module PolyAnalyst6API
 
     # Creates a Request instance (A Request.new alias)
     # @return [Request] Request instance
-    def request(url: '', method: :get, params: {})
-      Request.new(@server.base_url, @sid, url, method, params)
+    def request(url: '', method: :get, params: {}, body: nil)
+      Request.new(@server.base_url, @sid, url, method, params, body)
     end
 
     # Creates an instance of Project (A Project.new alias)

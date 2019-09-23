@@ -10,12 +10,13 @@ module PolyAnalyst6API
     # @param [String] method Http method of a request
     # @param [String] params Parameters
     # @return [Request] an instance of Request
-    def initialize(base_url, sid, url, method, params)
+    def initialize(base_url, sid, url, method, params, body)
       @base_url = base_url
       @sid = sid
       @url = url
       @method = method
       @params = params
+      @body = body
     end
 
     # Executes the request (and allows response manual processing)
@@ -69,15 +70,16 @@ module PolyAnalyst6API
     end
 
     def post_params
+      prms = Addressable::URI.new
+      prms.query_values = @params
       {
+        url: @base_url + @url + '?' + prms.query,
         headers: {
-          cookies: {
-            sid: @sid
-          },
+          cookies: { sid: @sid },
           content_type: :json,
           accept: :json
         },
-        payload: @params.to_json
+        payload: @body
       }
     end
   end
