@@ -10,6 +10,7 @@ require 'polyanalyst6api/server'
 require 'polyanalyst6api/session'
 require 'polyanalyst6api/request'
 require 'polyanalyst6api/project'
+require 'polyanalyst6api/server_error'
 
 # The module for the interaction with PolyAnalyst 6.x API
 module PolyAnalyst6API

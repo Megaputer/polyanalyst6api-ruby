@@ -30,7 +30,7 @@ module PolyAnalyst6API
       begin
         resp = RestClient::Request.execute full_params
       rescue RestClient::InternalServerError => e
-        raise JSON.parse(e.response.body)[1]
+        raise ServerError, JSON.parse(e.response.body)[1]
       end
       return yield(resp) if block_given? # Allowing manual response processing
       return nil if resp.code == 202
