@@ -17,7 +17,7 @@ module PolyAnalyst6API
 
     # exception message
     def message
-      @response_code.to_s + ': ' + @response_title
+      @response_title
     end
   end
 end
