@@ -13,10 +13,10 @@ module PolyAnalyst6API
     # @param [String] :pwd The password for specified user name
     # @raise [StandardError] an exception with corresponding login error
     # @return [Session] an instance of Session
-    def initialize(server, uname: 'administrator', pwd: '')
+    def initialize(server, uname: 'administrator', pwd: '', use_ldap: false, ldap_server: nil)
       @server = server
-      login_url = @server.base_url + "/login?uname=#{uname}&pwd=#{pwd}"
-      params = { method: :post, url: login_url, verify_ssl: false }
+      url = login_url(uname, pwd, use_ldap, ldap_server)
+      params = { method: :post, url: url, verify_ssl: false }
       begin
         resp = RestClient::Request.execute params
       rescue RestClient::InternalServerError => e
@@ -42,6 +42,14 @@ module PolyAnalyst6API
     # @return [json] Server info
     def server_info
       request(url: '/server/info', method: :get).perform!
+    end
+
+    private
+
+    def login_url(uname, pwd, use_ldap, ldap_svr)
+      ldap = use_ldap ? 1 : 0
+      url = "/login?uname=#{uname}&pwd=#{pwd}&useLDAP=#{ldap}&svr=#{ldap_svr}"
+      @server.base_url + url
     end
   end
 end
