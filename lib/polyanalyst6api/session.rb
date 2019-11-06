@@ -46,6 +46,12 @@ module PolyAnalyst6API
       request(url: '/server/info', method: :get).perform!
     end
 
+    # Initializes or returns an instance of Parameters
+    # @return [Parameters] parameters instance
+    def parameters
+      @parameters ||= Parameters.new self
+    end
+
     private
 
     def login_url(uname, pwd, use_ldap, ldap_svr)
