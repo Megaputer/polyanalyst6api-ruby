@@ -40,6 +40,12 @@ module PolyAnalyst6API
       Project.new(self, uuid)
     end
 
+    # Creates an instance of UserFolder
+    # @return [UserFolder] UserFolder instance
+    def user_folder
+      @user_folder ||= UserFolder.new(self)
+    end
+
     # Returns the server info data (branch, build number, component hashes)
     # @return [json] Server info
     def server_info
