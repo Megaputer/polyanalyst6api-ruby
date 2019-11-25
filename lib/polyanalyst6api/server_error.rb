@@ -9,7 +9,15 @@ module PolyAnalyst6API
     attr_reader :response_code, :tresponse_itle, :response_message
     # @param [String] response json string
     def initialize(body)
-      struct = JSON.parse(body)['error']
+      body_parsed = JSON.parse(body)
+      # TODO: get rid of this condition when new errors format is in the main
+      if body_parsed.is_a? Array
+        @response_code = '[unknown]'
+        @response_title = body_parsed[1]
+        @response_message = '[unknown]'
+        return
+      end
+      struct = body_parsed['error']
       @response_code = struct['code']
       @response_title = struct['title']
       @response_message = struct['message']
