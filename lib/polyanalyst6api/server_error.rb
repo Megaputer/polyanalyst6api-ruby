@@ -6,7 +6,7 @@ module PolyAnalyst6API
   # response_title [String] response title
   # response_message [String] response message
   class ServerError < StandardError
-    attr_reader :response_code, :tresponse_itle, :response_message
+    attr_reader :code, :title, :message
     # @param [String] response json string
     def initialize(body)
       body_parsed = JSON.parse(body)
@@ -18,14 +18,9 @@ module PolyAnalyst6API
         return
       end
       struct = body_parsed['error']
-      @response_code = struct['code']
-      @response_title = struct['title']
-      @response_message = struct['message']
-    end
-
-    # exception message
-    def message
-      @response_title
+      @code = struct['code']
+      @title = struct['title']
+      @message = struct['message']
     end
   end
 end
