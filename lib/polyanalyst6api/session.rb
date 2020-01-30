@@ -6,9 +6,7 @@ module PolyAnalyst6API
   class Session
     attr_reader :sid
     # Log in to a PolyAnslyst Server
-    # @param [String] :host The host to login to
-    # @param [Integer] :port The prot
-    # @param [String] :v API version to use (ex. '1.0', '2.3' etc.)
+    # @param [Server] The server to login to
     # @param [String] :uname The user name to login with
     # @param [String] :pwd The password for specified user name
     # @param [Bool] :use_ldap Use ldap or not
