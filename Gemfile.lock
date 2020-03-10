@@ -31,7 +31,7 @@ GEM
     powerpack (0.1.2)
     public_suffix (3.0.2)
     rainbow (3.0.0)
-    rake (10.5.0)
+    rake (12.3.3)
     rest-client (2.0.2-x64-mingw32)
       ffi (~> 1.9)
       http-cookie (>= 1.0.2, < 2.0)
@@ -78,7 +78,7 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 2.0, >= 2.0.1)
   polyanalyst6api!
-  rake (~> 10.0)
+  rake (>= 12.3.3)
   rspec (~> 3.0)
   rubocop (~> 0.63.1)
   yard (~> 0.9.20)
