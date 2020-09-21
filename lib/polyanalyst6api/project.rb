@@ -30,6 +30,7 @@ module PolyAnalyst6API
     #   project = Project.new(Session.new, '4c44659c-4edb-4f3e-8342-b10451b96f3f')
     #   project.execute!
     # @param nodes [Array<Hash>] A subset of nodes returned by the method *nodes*
+    # @return [Int] Execution wave ID
     def execute!(nodes = [])
       params = {
         method: :post,
@@ -39,7 +40,28 @@ module PolyAnalyst6API
           nodes: nodes
         }.to_json
       }
-      @session.request(params).perform!
+      @session.request(params).perform! do |resp|
+        params = CGI::parse(resp.headers[:location])
+        params['executionWave'].first
+      end
+    end
+
+    # Checks if a project is running
+    # @example
+    #   project = Project.new(Session.new, '4c44659c-4edb-4f3e-8342-b10451b96f3f')
+    #   project.running?
+    # @param exec_wave [Int] Execution wave ID (leave empty if want to check all)
+    # @return [Boolean] true if project is running
+    def running?(exec_wave = nil)
+      params = {
+        method: :get,
+        url: '/project/is-running',
+        params: {
+          prjUUID: @uuid,
+          executionWave: exec_wave || -1
+        }
+      }
+      @session.request(params).perform!['result'] == 1
     end
 
     # Stops project execution
