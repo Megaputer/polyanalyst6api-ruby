@@ -50,5 +50,29 @@ module PolyAnalyst6API
         }.to_json
       ).perform!
     end
+
+    def download_file(src_path, dst_path)
+      dir = File.dirname(src_path)
+      dir = '' if dir == '.'
+      uid = @session.request(
+        method: :post,
+        url: '/file/download',
+        body: { path: dir, name: File.basename(src_path) }.to_json
+      ).perform!['uid']
+
+      r = download_request(uid)
+      r.perform! do |resp|
+        File.open(dst_path, 'wb') { |f| f.write resp.body }
+      end
+    end
+
+    private
+
+    def download_request(uid)
+      host = @session.server.host
+      port = @session.server.port
+      download_url = "https://#{host}:#{port}/polyanalyst/download"
+      Request.new(@session.sid, download_url, :get, { uid: uid }, nil)
+    end
   end
 end
