@@ -10,8 +10,7 @@ module PolyAnalyst6API
     # @param [String] method Http method of a request
     # @param [String] params Parameters
     # @return [Request] an instance of Request
-    def initialize(base_url, sid, url, method, params, body)
-      @base_url = base_url
+    def initialize(sid, url, method, params, body)
       @sid = sid
       @url = url
       @method = method
@@ -43,7 +42,7 @@ module PolyAnalyst6API
     def full_params
       {
         method: @method,
-        url: @base_url + @url,
+        url: @url,
         verify_ssl: false
       }.merge(method_patams)
     end
@@ -63,7 +62,7 @@ module PolyAnalyst6API
       prms = Addressable::URI.new
       prms.query_values = @params
       {
-        url: @base_url + @url + '?' + prms.query,
+        url: @url + '?' + prms.query,
         accept: :json,
         cookies: { sid: @sid }
       }
@@ -73,7 +72,7 @@ module PolyAnalyst6API
       prms = Addressable::URI.new
       prms.query_values = @params
       {
-        url: @base_url + @url + '?' + prms.query,
+        url: @url + '?' + prms.query,
         headers: {
           cookies: { sid: @sid },
           content_type: :json,
