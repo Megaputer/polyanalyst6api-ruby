@@ -39,5 +39,16 @@ module PolyAnalyst6API
       }
       c.upload(file_path, additional_headers: upload_params)
     end
+
+    def delete_file(file_path)
+      @session.request(
+        method: :post,
+        url: '/file/delete',
+        body: {
+          path: File.dirname(file_path),
+          name: File.basename(file_path)
+        }.to_json
+      ).perform!
+    end
   end
 end
