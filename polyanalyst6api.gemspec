@@ -34,6 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'addressable'
   spec.add_dependency "json", ">= 2.3.0"
   spec.add_dependency 'rest-client', '~> 2.0', '>= 2.0.2'
+  spec.add_dependency 'clientus'
 
   spec.add_development_dependency 'bundler', '~> 2.0', '>= 2.0.1'
   spec.add_development_dependency 'rake', '>= 12.3.3'

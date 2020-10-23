@@ -6,6 +6,8 @@ require 'rest-client'
 require 'json'
 require 'addressable/uri'
 require 'cgi'
+require 'clientus'
+require 'base64'
 
 require 'polyanalyst6api/server'
 require 'polyanalyst6api/session'

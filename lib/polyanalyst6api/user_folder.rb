@@ -29,6 +29,15 @@ module PolyAnalyst6API
       ).perform!
     end
 
-    # def upload_file(path, file_name); end
+    def upload_file(file_path, folder = '/')
+      url = @session.server.base_url + '/file/upload'
+      http_params = { use_ssl: true, verify_mode: OpenSSL::SSL::VERIFY_NONE }
+      c = Clientus::Client.new(url, http_params: http_params)
+      upload_params = {
+        'Cookie' => { 'sid' => @session.sid },
+        'Upload-Metadata' => { 'foldername' => Base64.encode64(folder)[0..-2] }
+      }
+      c.upload(file_path, additional_headers: upload_params)
+    end
   end
 end
