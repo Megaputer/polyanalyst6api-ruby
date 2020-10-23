@@ -20,7 +20,7 @@ module PolyAnalyst6API
       begin
         resp = RestClient::Request.execute params
       rescue RestClient::InternalServerError => e
-        raise ServerError.new(e.response.body)
+        raise ServerError, e.response.body
       end
       @sid = resp.cookies['sid']
       raise 'Login failed!' unless @sid

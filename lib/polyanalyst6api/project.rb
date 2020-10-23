@@ -41,7 +41,7 @@ module PolyAnalyst6API
         }.to_json
       }
       @session.request(params).perform! do |resp|
-        params = CGI::parse(resp.headers[:location])
+        params = CGI.parse(resp.headers[:location])
         params['executionWave'].first
       end
     end
@@ -208,8 +208,16 @@ module PolyAnalyst6API
       params = {
         method: :post,
         url: '/parameters/configure',
-        params: { prjUUID: @uuid, obj: obj_id },
-        body: { type: node_type, declareUnsync: declare_unsync, settings: settings }.to_json.delete('\\') }
+        params: {
+          prjUUID: @uuid,
+          obj: obj_id
+        },
+        body: {
+          type: node_type,
+          declareUnsync: declare_unsync,
+          settings: settings
+        }.to_json.delete('\\')
+      }
       @session.request(params).perform!
     end
   end
