@@ -104,7 +104,7 @@ module PolyAnalyst6API
     # @return [Array<Hash>] A list of rows info
     def dataset_preview(type, name)
       err = "Invalid node type: #{type} (only 'Dataset' or 'DataSource' are available)"
-      raise err unless %w[Dataset DataSource].include? type
+      raise Error, err unless %w[Dataset DataSource].include? type
       params = {
         method: :get,
         url: '/dataset/preview',
