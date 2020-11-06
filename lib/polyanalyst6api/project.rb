@@ -3,6 +3,7 @@
 module PolyAnalyst6API
   # This class maintains all the operations with a project
   class Project
+    attr_reader :uuid
     # @param session [Session] An instance of Session
     # @param uuid [String] The uuid of a project you want to interact with
     # @return [Project] an instance of Project
@@ -191,34 +192,9 @@ module PolyAnalyst6API
       @session.request(params).perform!
     end
 
-    # Configures the Parameters node
-    # @param obj_id [Ingeter] The ID of the Parameters node to configure
-    # @param node_type [String] The type of node to configure Parameters for
-    # @param declare_unsinc [Boolean] true to reset the node status, false to keep
-    # @param settings [Hash] Needed configuration
-    # @example
-    #   project = Project.new(Session.new, '4c44659c-4edb-4f3e-8342-b10451b96f3f')
-    #   settings = {
-    #     "Group name": "test",
-    #     "Terms name": "test1",
-    #     "Expression": "test2"
-    #   }
-    #   project.parameters_configure(12, "TmlLinkTerms/", settings)
-    def parameters_configure(obj_id:, node_type:, declare_unsync: true, settings: {})
-      params = {
-        method: :post,
-        url: '/parameters/configure',
-        params: {
-          prjUUID: @uuid,
-          obj: obj_id
-        },
-        body: {
-          type: node_type,
-          declareUnsync: declare_unsync,
-          settings: settings
-        }.to_json.delete('\\')
-      }
-      @session.request(params).perform!
+    def parameters_node(node_id)
+      Parameters.new(@session, self, node_id)
     end
+
   end
 end
