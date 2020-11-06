@@ -29,7 +29,7 @@ module PolyAnalyst6API
       begin
         resp = RestClient::Request.execute full_params
       rescue RestClient::InternalServerError => e
-        raise ServerError, e.response.body
+        raise ServerError, ServerError.new(e.response.body).full_message
       end
       return yield(resp) if block_given? # Allowing manual response processing
       return nil if resp.code == 202
@@ -54,7 +54,7 @@ module PolyAnalyst6API
       when :post
         post_params
       else
-        raise 'Invalid request method!'
+        raise Error, 'Invalid request method!'
       end
     end
 

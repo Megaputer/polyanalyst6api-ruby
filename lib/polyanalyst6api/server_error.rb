@@ -10,17 +10,16 @@ module PolyAnalyst6API
     # @param [String] response json string
     def initialize(body)
       body_parsed = JSON.parse(body)
-      # TODO: get rid of this condition when new errors format is in the main
-      if body_parsed.is_a? Array
-        @response_code = '[unknown]'
-        @response_title = body_parsed[1]
-        @response_message = '[unknown]'
-        return
-      end
       struct = body_parsed['error']
       @code = struct['code']
       @title = struct['title']
       @message = struct['message']
+    end
+
+    def full_message
+      msg = "Code #{@code}"
+      msg += ": #{@title}" unless @title&.empty?
+      msg + ": #{@message}" unless @message&.empty?
     end
   end
 end
