@@ -21,28 +21,58 @@ module PolyAnalyst6API
     # Configures a Parameters node
     # @param node_type [String] The type of node to configure Parameters for
     # @param declare_unsinc [Boolean] true to reset the node status, false to keep
-    # @param settings [Hash] Needed configuration
+    # @param settings [Hash or Array] Needed configuration
     # @example
     #   project = Project.new(Session.new, '4c44659c-4edb-4f3e-8342-b10451b96f3f')
-    #   settings = {
-    #     "Group name": "test",
-    #     "Terms name": "test1",
-    #     "Expression": "test2"
+    #   parameters_node = project.parameters_node(75)
+    #   parameters = {
+    #     node_type: 'TmlLinkTerms\/',
+    #     settings: { 'Expression' => 'Test' },
+    #     strategies: [8, 9, 10, 11]
     #   }
-    #   project.parameters_configure(12, "TmlLinkTerms/", settings)
-    def configure(node_type:, declare_unsync: true, settings: {}, strategies: nil)
+    #   parameters_node.configure(parameters)
+    #
+    #   # OR
+    #   <...>
+    #   parameters = {
+    #     node_type: 'SRLRuleSet/SRL Rule',
+    #     settings: [
+    #       {
+    #         'Name' => 'strZstr',
+    #         'Rule' => '\'aaa\''
+    #       },
+    #       {
+    #         'Name' => 'strZtext',
+    #         'Rule' => '\'bbb\''
+    #       },
+    #       {
+    #         'Name' => 'int',
+    #         'Rule' => '1'
+    #       },
+    #       {
+    #         'Name' => 'dateZdate',
+    #         'Rule' => '#2012-01-20 01:22#'
+    #       }
+    #     ]
+    #   }
+    #   parameters_node.configure(parameters)
+    def configure(node_type:, declare_unsync: true, settings: nil, strategies: nil)
+      url = '/parameters/configure' if settings.is_a?(Hash)
+      url = '/parameters/configure-array' if settings.is_a?(Array)
+      raise Error, 'Bad parameters (\'settings\' be a Hash or Array)' unless url
+
       params = {
         method: :post,
-        url: '/parameters/configure',
+        url: url,
         params: {
           prjUUID: @project.uuid,
           obj: @id
         },
         body: {
           type: node_type,
-          declareUnsync: declare_unsync,
+          declareUnsync: declare_unsync || true,
           settings: settings,
-          strategies: strategies
+          strategies: strategies || []
         }.to_json.delete('\\')
       }
       @session.request(params).perform!
