@@ -50,10 +50,15 @@ module PolyAnalyst6API
       request(url: '/server/info', method: :get).perform!
     end
 
-    # Initializes or returns an instance of Parameters
-    # @return [Parameters] parameters instance
-    def parameters
-      @parameters ||= Parameters.new self
+    # Returns list of nodes available for configuration via the Parameters node
+    # along with their available parameters and strategies
+    # @return [Array] list of nodes
+    def parameterized_nodes
+      params = {
+        method: :get,
+        url: '/parameters/nodes'
+      }
+      request(params).perform!
     end
 
     private

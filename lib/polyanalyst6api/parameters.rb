@@ -8,18 +8,5 @@ module PolyAnalyst6API
     def initialize(session)
       @session = session
     end
-
-    # Returns the list of nodes that available for configuration via Parameters node
-    # @example
-    #   parameters = Parameters.new Session.new
-    #   parameters.available_nodes
-    # @return [Array<Hash>] A list of parameters for available nodes
-    def available_nodes
-      params = {
-        method: :get,
-        url: '/parameters/nodes'
-      }
-      @session.request(params).perform!
-    end
   end
 end
