@@ -77,5 +77,34 @@ module PolyAnalyst6API
       }
       @session.request(params).perform!
     end
+
+    # Clears configuration of  a Parameters node (specified nodes or all)
+    # @param nodes [Array] The types of node to clear ([] to clear all)
+    # @param declare_unsinc [Boolean] true to reset the node status, false to keep
+    # @example
+    #   project = Project.new(Session.new, '4c44659c-4edb-4f3e-8342-b10451b96f3f')
+    #   parameters_node = project.parameters_node(75)
+    #   to_clear = ["SRLRuleSet/SRL Rule", "SRLRuleSet/Filter Rows"]
+    #   parameters_node.clear(nodes: to_clear)
+    #
+    #   # OR
+    #   <...>
+    #   parameters_node.clear
+    #   # all cleared
+    def clear(nodes: [], declare_unsync: true)
+      params = {
+        method: :post,
+        url: '/parameters/clear',
+        params: {
+          prjUUID: @project.uuid,
+          obj: @id
+        },
+        body: {
+          nodes: nodes,
+          declareUnsync: declare_unsync || true
+        }.to_json.delete('\\')
+      }
+      @session.request(params).perform!
+    end
   end
 end
