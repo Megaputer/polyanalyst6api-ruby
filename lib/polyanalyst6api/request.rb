@@ -29,7 +29,7 @@ module PolyAnalyst6API
       begin
         resp = RestClient::Request.execute full_params
       rescue RestClient::InternalServerError => e
-        raise ServerError, ServerError.new(e.response.body).full_message
+        raise ServerError, PolyAnalyst6API.server_err_to_s(e.response.body)
       end
       return yield(resp) if block_given? # Allowing manual response processing
       return nil if resp.code == 202

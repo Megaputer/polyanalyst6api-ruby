@@ -20,5 +20,15 @@ require 'polyanalyst6api/error'
 
 # The module for the interaction with PolyAnalyst 6.x API
 module PolyAnalyst6API
-  # Your code goes here...
+  def self.server_err_to_s(body)
+    body_parsed = JSON.parse(body)
+    struct = body_parsed['error']
+    code = struct['code']
+    title = struct['title']
+    message = struct['message']
+
+    msg = "Code #{code}"
+    msg += ": #{title}" unless title&.empty?
+    msg + ": #{message}" unless message&.empty?
+  end
 end
