@@ -62,6 +62,15 @@ module PolyAnalyst6API
       request(params).perform!
     end
 
+    # Logs out from the current session
+    def logout!
+      params = {
+        method: :get,
+        url: '/logout'
+      }
+      request(params).perform!
+    end
+
     private
 
     def login_url(uname, pwd, use_ldap, ldap_svr)
