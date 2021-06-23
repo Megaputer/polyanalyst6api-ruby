@@ -62,7 +62,7 @@ module PolyAnalyst6API
       prms = Addressable::URI.new
       prms.query_values = @params
       {
-        url: @url + '?' + prms.query,
+        url: "#{@url}?#{prms.query}",
         accept: :json,
         cookies: { sid: @sid }
       }
@@ -72,7 +72,7 @@ module PolyAnalyst6API
       prms = Addressable::URI.new
       prms.query_values = @params
       {
-        url: @url + '?' + prms.query,
+        url: "#{@url}?#{prms.query}",
         headers: {
           cookies: { sid: @sid },
           content_type: :json,

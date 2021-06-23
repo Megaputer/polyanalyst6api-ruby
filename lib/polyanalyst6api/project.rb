@@ -4,6 +4,7 @@ module PolyAnalyst6API
   # This class maintains all the operations with a project
   class Project
     attr_reader :uuid
+
     # @param session [Session] An instance of Session
     # @param uuid [String] The uuid of a project you want to interact with
     # @return [Project] an instance of Project
@@ -195,6 +196,5 @@ module PolyAnalyst6API
     def parameters_node(node_id)
       Parameters.new(@session, self, node_id)
     end
-
   end
 end

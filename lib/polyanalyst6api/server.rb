@@ -7,6 +7,7 @@ module PolyAnalyst6API
   # @attr_reader version [String] API version
   class Server
     attr_reader :host, :port, :version
+
     # Initializes a Server instance
     # @param [String] :host Server host
     # @param [Integer] :port The prot

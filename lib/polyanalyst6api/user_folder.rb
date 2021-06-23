@@ -30,7 +30,7 @@ module PolyAnalyst6API
     end
 
     def upload_file(file_path, folder = '/')
-      url = @session.server.base_url + '/file/upload'
+      url = "#{@session.server.base_url}/file/upload"
       http_params = { use_ssl: true, verify_mode: OpenSSL::SSL::VERIFY_NONE }
       c = Clientus::Client.new(url, http_params: http_params)
       upload_params = {

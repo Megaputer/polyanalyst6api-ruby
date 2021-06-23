@@ -5,6 +5,7 @@ module PolyAnalyst6API
   # @attr_reader sid [String] The SID of current sessoin
   class Session
     attr_reader :sid, :server
+
     # Log in to a PolyAnslyst Server
     # @param [Server] The server to login to
     # @param [String] :uname The user name to login with
