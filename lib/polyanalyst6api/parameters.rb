@@ -70,7 +70,7 @@ module PolyAnalyst6API
         },
         body: {
           type: node_type,
-          declareUnsync: declare_unsync || true,
+          declareUnsync: declare_unsync,
           settings: settings,
           strategies: strategies || []
         }.to_json.delete('\\')
