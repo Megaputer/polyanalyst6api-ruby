@@ -20,7 +20,8 @@ module PolyAnalyst6API
 
     # Configures a Parameters node
     # @param node_type [String] The type of node to configure Parameters for
-    # @param declare_unsinc [Boolean] true to reset the node status, false to keep
+    # @param declare_unsync [Boolean] true to reset the node status, false to keep (default true)
+    # @param hard_update [Boolean] pass parameters to child nodes (default true)
     # @param settings [Hash or Array] Needed configuration
     # @example
     #   project = Project.new(Session.new, '4c44659c-4edb-4f3e-8342-b10451b96f3f')
@@ -56,7 +57,8 @@ module PolyAnalyst6API
     #     ]
     #   }
     #   parameters_node.configure(parameters)
-    def configure(node_type:, declare_unsync: true, settings: nil, strategies: nil)
+
+    def configure(node_type:, declare_unsync: true, hard_update: true, settings: {}, strategies: nil)
       url = '/parameters/configure' if settings.is_a?(Hash)
       url = '/parameters/configure-array' if settings.is_a?(Array)
       raise Error, 'Bad parameters (\'settings\' be a Hash or Array)' unless url
@@ -71,6 +73,7 @@ module PolyAnalyst6API
         body: {
           type: node_type,
           declareUnsync: declare_unsync,
+          hardUpdate: hard_update,
           settings: settings,
           strategies: strategies || []
         }.to_json.delete('\\')
