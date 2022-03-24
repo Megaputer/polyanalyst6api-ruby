@@ -29,7 +29,7 @@ module PolyAnalyst6API
 
     msg = "Code #{code}"
     msg += ": #{title}" unless title&.empty?
-    msg + ": #{message}" unless message&.empty?
+    msg += ": #{message}" unless message&.empty?
     msg
   end
 end
