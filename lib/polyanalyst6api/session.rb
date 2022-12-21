@@ -39,6 +39,12 @@ module PolyAnalyst6API
       Project.new(self, uuid)
     end
 
+    # Creates an instance of Report (A Report.new alias)
+    # @return [Report] Report instance
+    def report(uuid)
+      Report.new(self, uuid)
+    end
+
     # Creates an instance of UserFolder
     # @return [UserFolder] UserFolder instance
     def user_folder
