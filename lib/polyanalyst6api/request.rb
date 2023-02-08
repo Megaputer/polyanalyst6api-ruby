@@ -86,7 +86,7 @@ module PolyAnalyst6API
           content_type: :json,
           accept: :json
         },
-        payload: @body
+        payload: @body ? @body.to_json : nil
       }
     end
   end
