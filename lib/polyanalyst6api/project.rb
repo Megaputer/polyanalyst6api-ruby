@@ -33,19 +33,25 @@ module PolyAnalyst6API
     #   project.execute!
     # @param nodes [Array<Hash>] A subset of nodes returned by the method *nodes*
     # @return [Int] Execution wave ID
-    def execute!(nodes = [])
+    def execute!(wait: true, nodes: [])
       params = {
         method: :post,
         url: '/project/execute',
         body: {
           prjUUID: @uuid,
           nodes: nodes
-        }.to_json
+        }
       }
-      @session.request(params).perform! do |resp|
+
+      wave = nil
+      @session.request(**params).perform! do |resp|
         params = CGI.parse(resp.headers[:location])
-        params['executionWave'].first
+        wave = params['executionWave'].first
       end
+
+      return wave unless wait
+
+      sleep 0.1 while running?(wave)
     end
 
     # Checks if a project is running
