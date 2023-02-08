@@ -159,13 +159,14 @@ module PolyAnalyst6API
     # @example
     #   project = Project.new(Session.new, '4c44659c-4edb-4f3e-8342-b10451b96f3f')
     #   project.delete!
-    def delete!
+    def delete!(force: false)
       params = {
         method: :post,
         url: '/project/delete',
         body: {
-          prjUUID: @uuid
-        }.to_json
+          prjUUID: @uuid,
+          forceUnload: force
+        }
       }
       @session.request(params).perform!
     end
