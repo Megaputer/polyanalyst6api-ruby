@@ -28,14 +28,22 @@ module PolyAnalyst6API
     def perform!
       begin
         resp = RestClient::Request.execute full_params
+      rescue RestClient::ServiceUnavailable => e
+        raise e unless PolyAnalyst6API.config.repeat_on_pabusy
+        retry
       rescue RestClient::InternalServerError => e
         raise ServerError, PolyAnalyst6API.server_err_to_s(e.response.body)
       end
       return yield(resp) if block_given? # Allowing manual response processing
-      return nil if resp.code == 202
+      return 202 if resp.code == 202
       data = resp.body
-      data.empty? ? nil : JSON.parse(data)
+      begin
+        data.empty? ? nil : JSON.parse(data)
+      rescue JSON::ParserError
+        data
+      end
     end
+
 
     private
 
