@@ -24,7 +24,7 @@ module PolyAnalyst6API
         url: '/project/nodes',
         params: { prjUUID: @uuid }
       }
-      @session.request(params).perform!['nodes']
+      @session.request(**params).perform!['nodes']
     end
 
     # Executes the passed nodes
@@ -76,7 +76,7 @@ module PolyAnalyst6API
         url: '/project/global-abort',
         body: {
           prjUUID: @uuid
-        }.to_json
+        }
       }
       @session.request(params).perform!
     end
@@ -91,7 +91,7 @@ module PolyAnalyst6API
         url: '/project/save',
         body: {
           prjUUID: @uuid
-        }.to_json
+        }
       }
       @session.request(params).perform!
     end
@@ -144,7 +144,7 @@ module PolyAnalyst6API
         url: '/project/repair',
         body: {
           prjUUID: @uuid
-        }.to_json
+        }
       }
       @session.request(params).perform!
     end
