@@ -77,6 +77,18 @@ module PolyAnalyst6API
       request(params).perform!
     end
 
+    def dataset_wrapper(project_uuid, object_id)
+      params = {
+        method: :post,
+        url: '/dataset/wrapper-guid',
+        params: {
+          prjUUID: project_uuid,
+          obj: object_id
+        }
+      }
+      request(params).perform!['wrapperGuid']
+    end
+
     private
 
     def login_url(uname, pwd, use_ldap, ldap_svr)
