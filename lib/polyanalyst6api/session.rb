@@ -104,6 +104,18 @@ module PolyAnalyst6API
     end
 
     def dataset_binary_content(project_uuid, object_id, text_id)
+      wrapper = dataset_wrapper(project_uuid, object_id)
+      params = {
+        method: :get,
+        url: '/dataset/get-binary-content',
+        params: {
+          wrapperGuid: wrapper,
+          key: text_id
+        }
+      }
+      request(params).perform!
+    end
+
     private
 
     def login_url(uname, pwd, use_ldap, ldap_svr)
