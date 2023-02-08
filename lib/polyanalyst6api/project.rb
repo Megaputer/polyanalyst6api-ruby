@@ -206,6 +206,20 @@ module PolyAnalyst6API
       @session.request(params).perform!
     end
 
+    # Returns reports list belonging to the project
+    # @example
+    #   project = Project.new(Session.new, '4c44659c-4edb-4f3e-8342-b10451b96f3f')
+    #   project.reports
+    # @return [Array<Hash>] A list of reports info
+    def reports
+      params = {
+        method: :get,
+        url: '/project/reports',
+        params: { prjUUID: @uuid }
+      }
+      @session.request(params).perform!
+    end
+
     def parameters_node(node_id)
       Parameters.new(@session, self, node_id)
     end
