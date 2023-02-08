@@ -181,9 +181,15 @@ module PolyAnalyst6API
         url: '/project/unload',
         body: {
           prjUUID: @uuid
-        }.to_json
+        }
       }
-      @session.request(params).perform!
+
+      begin
+        @session.request(params).perform!
+      rescue PolyAnalyst6API::ServerError => e
+        return if e.message.include?('has not been opened by user')
+        raise e
+      end
     end
 
     # Returns a current project tasks list
