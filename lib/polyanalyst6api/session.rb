@@ -30,7 +30,7 @@ module PolyAnalyst6API
     # Creates a Request instance (A Request.new alias)
     # @return [Request] Request instance
     def request(url: '', method: :get, params: {}, body: nil)
-      Request.new(@sid, @server.base_url + url, method, params, body)
+      Request.new(@sid, @server.api_base + url, method, params, body)
     end
 
     # Creates an instance of Project (A Project.new alias)
@@ -82,7 +82,7 @@ module PolyAnalyst6API
     def login_url(uname, pwd, use_ldap, ldap_svr)
       ldap = use_ldap ? 1 : 0
       url = "/login?uname=#{uname}&pwd=#{pwd}&useLDAP=#{ldap}&svr=#{ldap_svr}"
-      @server.base_url + url
+      @server.api_base + url
     end
   end
 end

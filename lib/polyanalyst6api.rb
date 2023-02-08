@@ -17,6 +17,7 @@ require 'polyanalyst6api/parameters'
 require 'polyanalyst6api/user_folder'
 require 'polyanalyst6api/server_error'
 require 'polyanalyst6api/error'
+require 'polyanalyst6api/config'
 require 'polyanalyst6api/report'
 
 # The module for the interaction with PolyAnalyst 6.x API
@@ -32,5 +33,11 @@ module PolyAnalyst6API
     msg += ": #{title}" unless title&.empty?
     msg += ": #{message}" unless message&.empty?
     msg
+  end
+
+  class << self
+    def config
+      @config ||= Config.new
+    end
   end
 end

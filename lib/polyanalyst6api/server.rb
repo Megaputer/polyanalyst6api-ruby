@@ -22,13 +22,24 @@ module PolyAnalyst6API
       @version = version # TODO: raise if unsupported version
     end
 
+    # Returns server address
+    # @example
+    #   server = Server.new(host: 'localhost, port: 5043, version: '1.0')
+    #   server.address
+    # @return [String] Server address, ex. "https://localhost:5043"
+    def address
+      @address ||= "#{PolyAnalyst6API.config.scheme}://#{@host}:#{@port}"
+    end
+
     # Returns server base API url
     # @example
     #   server = Server.new(host: 'localhost, port: 5043, version: '1.0')
     #   server.base_url
     # @return [String] base API url
-    def base_url
-      @base_url ||= "https://#{@host}:#{@port}/polyanalyst/api/v#{@version}"
+    def api_base
+      @api_base ||= "#{address}/polyanalyst/api/v#{@version}"
+    end
+
     end
   end
 end
