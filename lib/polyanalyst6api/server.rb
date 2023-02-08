@@ -40,6 +40,25 @@ module PolyAnalyst6API
       @api_base ||= "#{address}/polyanalyst/api/v#{@version}"
     end
 
+    # Returns server health status
+    # @example
+    #   server = Server.new(host: 'localhost, port: 5043, version: '1.0')
+    #   server.ok?
+    # @return [Boolean] Server health status
+    def ok?
+      params = {
+        method: :get,
+        url: "#{address}/polyanalyst/health",
+        verify_ssl: PolyAnalyst6API.config.verify_ssl,
+        headers: {
+          content_type: :json,
+          accept: :json
+        }
+      }
+
+      response = RestClient::Request.execute(params) { |resp, _, _| resp }
+      data = JSON.parse(response.body)
+      response.code == 200 && data['status'] == 'up'
     end
   end
 end
