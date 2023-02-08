@@ -89,6 +89,21 @@ module PolyAnalyst6API
       request(params).perform!['wrapperGuid']
     end
 
+
+    def dataset_values(project_uuid, object_id, row_count)
+      wrapper = dataset_wrapper(project_uuid, object_id)
+      params = {
+        method: :post,
+        url: '/dataset/values',
+        body: {
+          wrapperGuid: wrapper,
+          rowCount: row_count
+        }
+      }
+      request(params).perform!
+    end
+
+    def dataset_binary_content(project_uuid, object_id, text_id)
     private
 
     def login_url(uname, pwd, use_ldap, ldap_svr)
