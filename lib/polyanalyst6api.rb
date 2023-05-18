@@ -17,6 +17,7 @@ require 'polyanalyst6api/parameters'
 require 'polyanalyst6api/user_folder'
 require 'polyanalyst6api/server_error'
 require 'polyanalyst6api/error'
+require 'polyanalyst6api/report'
 
 # The module for the interaction with PolyAnalyst 6.x API
 module PolyAnalyst6API
