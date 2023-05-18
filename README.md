@@ -33,10 +33,8 @@ project.execute!(<nodes list>)   # executes passed nodes
 project.save!                    # saves the project
 ```
 
-Full API specification is stored in the **PolyAnalyst User Manual** under the url below:
-```
-/polyanalyst/help/eng/26_Application_Programming_Interfaces/toc.html
-```
+Full API specification is described in the **Application Programming Interfaces** section of **PolyAnalyst User Manual**.
+
 Please, check out the page and choose the corresponding API version to explore.
 
 Refer to [the documentation](https://www.rubydoc.info/github/Megaputer/polyanalyst6api-ruby) for more detailed information on the gem usage.
